@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Cheffy</string>
+    <string name="mix">Mix and Match</string>
+    <string name="mix_sub">Explore new recipes and ingredients with our app</string>
+    <string name="add_flavor">Add Some Flavor</string>
+    <string name="add_flavor_sub">Learn how to enhance your dishes with different ingredients and techniques</string>
+    <string name="chefpic">Cook Like a Pro</string>
+    <string name="chefpic_sub">Master the art of cooking with our step-by-step tutorials and tips</string>
+    <string name="lets_get_started">Let\'s get started</string>
+</resources>
