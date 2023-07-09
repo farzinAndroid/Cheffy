@@ -26,5 +26,17 @@ val ColorScheme.onBoardingButton: Color
     @Composable
     get() = if (isSystemInDarkTheme()) Color(0xFFFFFFFF) else Color(0xFF605212)
 
+val ColorScheme.bottomBarColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color(0xFF605212) else Color(0xFF9B9A9A)
+
+val ColorScheme.bottomItemColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color(0xFFFFFFFF) else Color(0xFF605212)
+
+val ColorScheme.statusBarColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color(0xFF313131) else Color(0xFFFFFFFF)
+
 
 

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.farzin.cheffy.navigation.BottomNavigationBar
 import com.farzin.cheffy.navigation.NavGraph
 import com.farzin.cheffy.navigation.Screens
 import com.farzin.cheffy.ui.components.ChangeStatusBarColor
@@ -32,29 +33,39 @@ class MainActivity : ComponentActivity() {
             CheffyTheme {
 
                 val navController = rememberNavController()
-                val dataStoreViewModel:DataStoreViewModel = viewModel()
+                val dataStoreViewModel: DataStoreViewModel = viewModel()
 
 
                 ChangeStatusBarColor(navController)
 
 
-                Scaffold {
-                    NavGraph(
-                        navController = navController,
-                        startDestination = getStartingRoute(dataStoreViewModel)
-                    )
-                }
+                Scaffold(
+                    bottomBar = {
+                        BottomNavigationBar(
+                            onClick = {
+                                navController.navigate(it.route)
+                            },
+                            navController = navController
+                        )
+                    },
+                    content = {
+                        NavGraph(
+                            navController = navController,
+                            startDestination = getStartingRoute(dataStoreViewModel)
+                        )
+                    }
+                )
 
             }
         }
     }
 }
 
-private fun getStartingRoute(vm:DataStoreViewModel) : String{
+private fun getStartingRoute(vm: DataStoreViewModel): String {
 
-    return if (vm.getOnBoardingState() == true){
+    return if (vm.getOnBoardingState() == true) {
         Screens.Home.route
-    }else{
+    } else {
         Screens.Welcome.route
     }
 

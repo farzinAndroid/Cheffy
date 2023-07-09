@@ -4,5 +4,7 @@ open class Screens(val route:String) {
 
     object Welcome :Screens(route = "welcome_screen")
     object Home :Screens(route = "home_screen")
+    object Save :Screens(route = "save_screen")
+    object Search :Screens(route = "search_screen")
 
 }
