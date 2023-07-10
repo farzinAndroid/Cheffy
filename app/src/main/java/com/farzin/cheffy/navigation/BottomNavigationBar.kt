@@ -1,5 +1,6 @@
 package com.farzin.cheffy.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import com.farzin.cheffy.ui.theme.bottomBarColor
 import com.farzin.cheffy.ui.theme.bottomItemColor
 import com.farzin.cheffy.ui.theme.mainGreen
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun BottomNavigationBar(
     onClick:(BottomNavItem)->Unit,

@@ -7,4 +7,8 @@
     <string name="chefpic">Cook Like a Pro</string>
     <string name="chefpic_sub">Master the art of cooking with our step-by-step tutorials and tips</string>
     <string name="lets_get_started">Let\'s get started</string>
+    <string name="shall_we_cook">Shall we cook?</string>
+    <string name="search_recipes">Search recipes</string>
+    <string name="recommedations">Recommendations</string>
+    <string name="see_all">See all</string>
 </resources>

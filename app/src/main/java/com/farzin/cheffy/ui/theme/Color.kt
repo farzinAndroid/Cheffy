@@ -38,5 +38,19 @@ val ColorScheme.statusBarColor: Color
     @Composable
     get() = if (isSystemInDarkTheme()) Color(0xFF313131) else Color(0xFFFFFFFF)
 
+val ColorScheme.chefHatColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color(0xFFFFFFFF) else Color(0xFF605212)
+
+val ColorScheme.searchBarColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color(0xFF464646) else Color(0xFFE2E1E1)
+
+val ColorScheme.seeAllColor: Color
+    @Composable
+    get() = Color(0xFF00A324)
+
+
+
 
 

@@ -51,7 +51,7 @@ fun OnBoardingScreen(
             title = stringResource(R.string.mix),
             description = stringResource(R.string.mix_sub),
             image = if (isSystemInDarkTheme()) painterResource(R.drawable.mix_dark)
-            else painterResource(R.drawable.mix_light)
+            else painterResource(R.drawable.cook_dark)
         ),
 
         Page(
