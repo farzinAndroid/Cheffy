@@ -1,17 +1,15 @@
 package com.farzin.cheffy.ui.screens.home
 
-import android.hardware.camera2.params.RecommendedStreamConfigurationMap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.farzin.cheffy.navigation.Screens
-import com.farzin.cheffy.ui.theme.bottomBarColor
 import com.farzin.cheffy.ui.theme.statusBarColor
 import com.farzin.cheffy.viewmodel.HomeViewModel
 
@@ -30,12 +28,14 @@ fun Home() {
 
     LazyColumn(
         modifier = Modifier
+            .padding(bottom = 40.dp)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.statusBarColor)
     ){
         item { HomeTopBarSection() }
         item { SearchSection() }
         item { RecommendationSection() }
+        item { TopCuisinesSection() }
     }
 
 }

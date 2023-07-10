@@ -11,4 +11,6 @@
     <string name="search_recipes">Search recipes</string>
     <string name="recommedations">Recommendations</string>
     <string name="see_all">See all</string>
+    <string name="top_cuisines">Top cuisines</string>
+    <string name="min">min</string>
 </resources>

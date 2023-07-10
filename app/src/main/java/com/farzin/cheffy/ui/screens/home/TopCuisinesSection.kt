@@ -28,35 +28,34 @@ import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.home.recommended_section.Result
 import com.farzin.cheffy.ui.theme.seeAllColor
 import com.farzin.cheffy.viewmodel.HomeViewModel
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun RecommendationSection(
+fun TopCuisinesSection(
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
 
 
-    var loading by remember { mutableStateOf(false) }
-    var recommendedList = remember<List<Result>> { emptyList() }
-    val state = rememberPagerState()
 
-    val result by homeViewModel.reccommended.collectAsState()
+    var loading by remember { mutableStateOf(false) }
+    var recommendedCuisinesList = remember<List<Result>> { emptyList() }
+
+    val result by homeViewModel.recommendedCuisines.collectAsState()
     when(result){
         is NetworkResult.Success->{
-            recommendedList = result.data?.results ?: emptyList()
+            recommendedCuisinesList = result.data?.results ?: emptyList()
             loading = false
 //            Log.e("TAG","success ${result.data?.results?.get(0)?.pricePerServing}")
         }
         is NetworkResult.Error->{
             loading = false
-            Log.e("TAG","recommendedList error  ${result.message}")
+            Log.e("TAG","recommendedCuisinesList Error  ${result.message}")
         }
         is NetworkResult.Loading->{
             loading = true
         }
     }
+
 
 
 
@@ -75,7 +74,7 @@ fun RecommendationSection(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = stringResource(R.string.recommedations),
+                text = stringResource(R.string.top_cuisines),
                 style = TextStyle(
                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     fontWeight = FontWeight.Bold,
@@ -93,13 +92,9 @@ fun RecommendationSection(
         }
 
 
-
-        LazyRow(
-            modifier =Modifier
-                .fillMaxWidth(),
-        ){
-            items(recommendedList){item->
-                RecommendationCard(item = item)
+        LazyRow(modifier = Modifier.fillMaxWidth()){
+            items(recommendedCuisinesList){item->
+                CuisineCard(item = item)
             }
         }
 
@@ -107,7 +102,4 @@ fun RecommendationSection(
 
     }
 
-
 }
-
-

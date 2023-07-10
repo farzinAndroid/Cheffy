@@ -50,6 +50,10 @@ val ColorScheme.seeAllColor: Color
     @Composable
     get() = Color(0xFF00A324)
 
+val ColorScheme.iconColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color(0xFFFFFFFF) else Color(0xFF00A324)
+
 
 
 
