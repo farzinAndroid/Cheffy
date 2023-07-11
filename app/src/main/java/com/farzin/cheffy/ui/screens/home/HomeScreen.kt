@@ -41,5 +41,5 @@ fun Home() {
 }
 
 private fun getAllServerResults(vm:HomeViewModel){
-    vm.getAllServerResults()
+    vm.getRecommendedFoodsFromServer()
 }

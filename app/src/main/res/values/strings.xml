@@ -13,4 +13,7 @@
     <string name="see_all">See all</string>
     <string name="top_cuisines">Top cuisines</string>
     <string name="min">min</string>
+    <string name="whats_in_your_kitchen">What\'s in your kitchen?</string>
+    <string name="add_up_three_ingredients">Add up to 3 ingredients</string>
+    <string name="find_recipe">Find recipe</string>
 </resources>

@@ -13,20 +13,26 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repo: HomeRepository) : ViewModel() {
 
-    val reccommended = MutableStateFlow<NetworkResult<RecipeWithInfo>>(NetworkResult.Loading())
+    val recommended = MutableStateFlow<NetworkResult<RecipeWithInfo>>(NetworkResult.Loading())
     val recommendedCuisines =
         MutableStateFlow<NetworkResult<RecipeWithInfo>>(NetworkResult.Loading())
 
 
-    fun getAllServerResults() {
+    fun getRecommendedFoodsFromServer() {
         viewModelScope.launch {
 
             launch {
-                reccommended.emit(repo.getRecommendation())
+                recommended.emit(repo.getRecommendation())
             }
 
+        }
+    }
+
+    fun getTopCuisineFromServer(cuisine:String) {
+        viewModelScope.launch {
+
             launch {
-                recommendedCuisines.emit(repo.getRecommendedCuisines(getCuisine()))
+                recommendedCuisines.emit(repo.getRecommendedCuisines(cuisine))
             }
 
         }

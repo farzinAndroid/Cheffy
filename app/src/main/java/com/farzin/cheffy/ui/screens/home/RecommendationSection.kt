@@ -42,7 +42,7 @@ fun RecommendationSection(
     var recommendedList = remember<List<Result>> { emptyList() }
     val state = rememberPagerState()
 
-    val result by homeViewModel.reccommended.collectAsState()
+    val result by homeViewModel.recommended.collectAsState()
     when(result){
         is NetworkResult.Success->{
             recommendedList = result.data?.results ?: emptyList()

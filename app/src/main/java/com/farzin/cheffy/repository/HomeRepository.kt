@@ -10,12 +10,12 @@ class HomeRepository @Inject constructor(private val api:HomeApiInterface) : Bas
 
 
     suspend fun getRecommendation() : NetworkResult<RecipeWithInfo> =
-        recommendedSafeApiCall {
+        safeApiCall {
             api.getRecommendation()
         }
 
     suspend fun getRecommendedCuisines(cuisine:String) : NetworkResult<RecipeWithInfo> =
-        recommendedSafeApiCall {
+        safeApiCall {
             api.getRecommendedCuisines(cuisine = cuisine)
         }
 }
