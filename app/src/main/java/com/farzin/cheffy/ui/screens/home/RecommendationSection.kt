@@ -23,9 +23,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.farzin.cheffy.R
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.home.recommended_section.Result
+import com.farzin.cheffy.navigation.Screens
 import com.farzin.cheffy.ui.theme.seeAllColor
 import com.farzin.cheffy.viewmodel.HomeViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -35,6 +38,7 @@ import com.google.accompanist.pager.rememberPagerState
 @Composable
 fun RecommendationSection(
     homeViewModel: HomeViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
 
 
@@ -98,7 +102,12 @@ fun RecommendationSection(
                 .fillMaxWidth(),
         ){
             items(recommendedList){item->
-                RecommendationCard(item = item)
+                RecommendationCard(
+                    item = item,
+                    onClick = {id->
+                        navController.navigate(Screens.Detail.route+"/$id")
+                    }
+                )
             }
         }
 

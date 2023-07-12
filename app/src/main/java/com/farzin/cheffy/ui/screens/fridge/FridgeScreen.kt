@@ -12,17 +12,18 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
-fun FridgeScreen() {
+fun FridgeScreen(navController: NavController) {
 
-    Fridge()
+    Fridge(navController)
 
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun Fridge() {
+fun Fridge(navController: NavController) {
 
 
     Column(
@@ -31,7 +32,7 @@ fun Fridge() {
             .padding(bottom = 20.dp)
     ) {
 
-        FridgeSection()
+        FridgeSection(navController = navController)
 
 
     }

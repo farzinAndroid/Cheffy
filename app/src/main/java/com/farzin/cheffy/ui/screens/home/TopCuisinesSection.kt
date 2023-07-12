@@ -36,9 +36,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.farzin.cheffy.R
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.home.recommended_section.Result
+import com.farzin.cheffy.navigation.Screens
 import com.farzin.cheffy.ui.theme.mainGreen
 import com.farzin.cheffy.ui.theme.seeAllColor
 import com.farzin.cheffy.viewmodel.HomeViewModel
@@ -48,8 +50,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun TopCuisinesSection(
     homeViewModel: HomeViewModel = hiltViewModel(),
+    navController: NavHostController,
 ) {
-
 
 
     val cuisines = listOf(
@@ -61,7 +63,7 @@ fun TopCuisinesSection(
     )
 
     var selectedTabIndex by remember { mutableStateOf(0) }
-    var scope= rememberCoroutineScope()
+    var scope = rememberCoroutineScope()
 
     var loading by remember { mutableStateOf(false) }
     var recommendedCuisinesList = remember<List<Result>> { emptyList() }
@@ -187,60 +189,91 @@ fun TopCuisinesSection(
 
         }*/
 
-        when(selectedTabIndex){
-            0->{
+        when (selectedTabIndex) {
+            0 -> {
 
                 LaunchedEffect(true) {
-                    getTopCuisineFromServer(homeViewModel,cuisines[0])
+                    getTopCuisineFromServer(homeViewModel, cuisines[0])
                 }
 
-                LazyRow(modifier = Modifier.fillMaxWidth()){
-                    items(recommendedCuisinesList){item->
-                        CuisineCard(item = item)
+                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                    items(recommendedCuisinesList) { item ->
+                        CuisineCard(
+                            item = item,
+                            onClick = {
+                                navController.navigate(Screens.Detail.route + "/${item.id}")
+                            }
+                        )
+
+
                     }
                 }
             }
-            1->{
+
+            1 -> {
                 LaunchedEffect(true) {
-                    getTopCuisineFromServer(homeViewModel,cuisines[1])
+                    getTopCuisineFromServer(homeViewModel, cuisines[1])
                 }
 
-                LazyRow(modifier = Modifier.fillMaxWidth()){
-                    items(recommendedCuisinesList){item->
-                        CuisineCard(item = item)
+                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                    items(recommendedCuisinesList) { item ->
+                        CuisineCard(
+                            item = item,
+                            onClick = {
+                                navController.navigate(Screens.Detail.route + "/${item.id}")
+                            }
+                        )
                     }
                 }
             }
-            2->{
+
+            2 -> {
                 LaunchedEffect(true) {
-                    getTopCuisineFromServer(homeViewModel,cuisines[2])
+                    getTopCuisineFromServer(homeViewModel, cuisines[2])
                 }
 
-                LazyRow(modifier = Modifier.fillMaxWidth()){
-                    items(recommendedCuisinesList){item->
-                        CuisineCard(item = item)
+                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                    items(recommendedCuisinesList) { item ->
+                        CuisineCard(
+                            item = item,
+                            onClick = {
+                                navController.navigate(Screens.Detail.route + "/${item.id}")
+                            }
+                        )
                     }
                 }
             }
-            3->{
+
+            3 -> {
                 LaunchedEffect(true) {
-                    getTopCuisineFromServer(homeViewModel,cuisines[3])
+                    getTopCuisineFromServer(homeViewModel, cuisines[3])
                 }
 
-                LazyRow(modifier = Modifier.fillMaxWidth()){
-                    items(recommendedCuisinesList){item->
-                        CuisineCard(item = item)
+                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                    items(recommendedCuisinesList) { item ->
+                        CuisineCard(
+                            item = item,
+                            onClick = {
+                                navController.navigate(Screens.Detail.route + "/${item.id}")
+                            }
+                        )
                     }
                 }
             }
-            4->{
+
+            4 -> {
                 LaunchedEffect(true) {
-                    getTopCuisineFromServer(homeViewModel,cuisines[4])
+                    getTopCuisineFromServer(homeViewModel, cuisines[4])
                 }
 
-                LazyRow(modifier = Modifier.fillMaxWidth()){
-                    items(recommendedCuisinesList){item->
-                        CuisineCard(item = item)
+                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                    items(recommendedCuisinesList) { item ->
+                        CuisineCard(
+                            item = item,
+                            onClick = {
+                                navController.navigate(Screens.Detail.route + "/${item.id}")
+                            }
+                        )
                     }
                 }
             }
@@ -248,13 +281,11 @@ fun TopCuisinesSection(
         }
 
 
-
-
     }
 
 }
 
-private fun getTopCuisineFromServer(vm:HomeViewModel,cuisine:String){
-        vm.getTopCuisineFromServer(cuisine)
+private fun getTopCuisineFromServer(vm: HomeViewModel, cuisine: String) {
+    vm.getTopCuisineFromServer(cuisine)
 
 }

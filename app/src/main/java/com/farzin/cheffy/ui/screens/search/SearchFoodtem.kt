@@ -50,7 +50,8 @@ import com.farzin.cheffy.ui.theme.searchColor
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SearchFoodItem(
-    item:Result
+    item:Result,
+    onClick:()->Unit
 ) {
 
 
@@ -68,7 +69,7 @@ fun SearchFoodItem(
             .padding(vertical = 8.dp)
             .fillMaxWidth()
             .height(120.dp)
-            .clickable {  },
+            .clickable { onClick() },
         shape = Shapes().large,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.searchBarColor

@@ -40,9 +40,7 @@ fun OnBoardingScreen(
 ) {
 
 
-    /*val annotatedText = remember(recipeText) {
-        HtmlCompat.fromHtml(recipeText, HtmlCompat.FROM_HTML_MODE_LEGACY)
-    }*/
+
 
     val pagerState = rememberPagerState()
 

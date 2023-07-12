@@ -28,10 +28,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.farzin.cheffy.R
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.fridge.FridgeModelItem
 import com.farzin.cheffy.data.model.home.recommended_section.Result
+import com.farzin.cheffy.navigation.Screens
 import com.farzin.cheffy.viewmodel.FridgeViewModel
 import com.farzin.cheffy.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
@@ -39,6 +41,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FridgeSection(
     fridgeViewModel: FridgeViewModel = hiltViewModel(),
+    navController: NavController,
 ) {
 
     val scope = rememberCoroutineScope()
@@ -166,7 +169,12 @@ fun FridgeSection(
         ) {
 
             items(recipeByIngredientList) { fridgeModel ->
-                FridgeRecipeItem(fridgeModel)
+                FridgeRecipeItem(
+                    fridgeModel,
+                    onClick = {
+                        navController.navigate(Screens.Detail.route+"/${fridgeModel.id}")
+                    }
+                )
             }
 
         }

@@ -2,7 +2,7 @@ package com.farzin.cheffy.repository
 
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.home.recommended_section.RecipeWithInfo
-import com.farzin.cheffy.data.remote.home.BaseApiResponse
+import com.farzin.cheffy.data.remote.BaseApiResponse
 import com.farzin.cheffy.data.remote.home.HomeApiInterface
 import javax.inject.Inject
 

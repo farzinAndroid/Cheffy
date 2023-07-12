@@ -7,5 +7,6 @@ open class Screens(val route:String) {
     object Save :Screens(route = "save_screen")
     object Search :Screens(route = "search_screen")
     object Fridge :Screens(route = "fridge_screen")
+    object Detail :Screens(route = "detail_screen")
 
 }

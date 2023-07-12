@@ -39,7 +39,8 @@ import com.farzin.cheffy.ui.theme.unusedIngredientColor
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FridgeRecipeItem(
-    item:FridgeModelItem
+    item:FridgeModelItem,
+    onClick:()->Unit
 ) {
 
     val context = LocalContext.current
@@ -51,7 +52,7 @@ fun FridgeRecipeItem(
             .padding(top = 8.dp)
             .fillMaxWidth()
             .height(120.dp)
-            .clickable { },
+            .clickable { onClick() },
         shape = Shapes().medium,
         colors = CardDefaults.cardColors(
             MaterialTheme.colorScheme.searchBarColor

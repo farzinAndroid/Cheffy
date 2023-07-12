@@ -41,7 +41,8 @@ import com.farzin.cheffy.ui.theme.searchBarColor
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RecommendationCard(
-    item: Result
+    item: Result,
+    onClick:(Int)->Unit
 ) {
 
     Card(
@@ -49,7 +50,7 @@ fun RecommendationCard(
             .width(200.dp)
             .height(270.dp)
             .padding(16.dp)
-            .clickable { },
+            .clickable { onClick(item.id) },
         shape = Shapes().medium,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.searchBarColor

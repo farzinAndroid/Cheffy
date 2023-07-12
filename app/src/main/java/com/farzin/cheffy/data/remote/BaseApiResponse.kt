@@ -1,4 +1,4 @@
-package com.farzin.cheffy.data.remote.home
+package com.farzin.cheffy.data.remote
 
 import com.farzin.cheffy.data.model.NetworkResult
 import kotlinx.coroutines.Dispatchers

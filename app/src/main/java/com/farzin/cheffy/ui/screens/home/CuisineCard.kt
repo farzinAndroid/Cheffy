@@ -50,6 +50,7 @@ import com.farzin.cheffy.ui.theme.seeAllColor
 @Composable
 fun CuisineCard(
     item: Result,
+    onClick:()->Unit
 ) {
 
     var text = ""
@@ -64,7 +65,9 @@ fun CuisineCard(
             .padding(horizontal = 16.dp)
             .width(200.dp)
             .height(250.dp)
-            .clickable { }
+            .clickable {
+                onClick()
+            }
     ) {
 
         Column() {

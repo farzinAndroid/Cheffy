@@ -44,8 +44,8 @@ fun Home(navController: NavHostController,) {
                 navController.navigate(Screens.Search.route)
             }
         ) }
-        item { RecommendationSection() }
-        item { TopCuisinesSection() }
+        item { RecommendationSection(navController = navController) }
+        item { TopCuisinesSection(navController = navController) }
     }
 
 }

@@ -39,9 +39,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.farzin.cheffy.R
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.home.recommended_section.Result
+import com.farzin.cheffy.navigation.Screens
 import com.farzin.cheffy.ui.theme.searchColor
 import com.farzin.cheffy.viewmodel.SearchViewModel
 import kotlinx.coroutines.Job
@@ -50,7 +52,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SearchSection(
-    onClick: () -> Unit,
+    onBackClick: () -> Unit,
+    navController: NavController,
     searchViewModel: SearchViewModel = hiltViewModel(),
 ) {
 
@@ -116,7 +119,7 @@ fun SearchSection(
                                 .clip(Shapes().extraLarge)
                                 .background(Color.White)
                                 .clickable {
-                                    onClick()
+                                    onBackClick()
                                 }
                         ) {
 
@@ -193,7 +196,12 @@ fun SearchSection(
         ){
 
             items(searchList){item->
-                SearchFoodItem(item)
+                SearchFoodItem(
+                    item = item,
+                    onClick = {
+                        navController.navigate(Screens.Detail.route+"/${item.id}")
+                    }
+                )
             }
 
         }
