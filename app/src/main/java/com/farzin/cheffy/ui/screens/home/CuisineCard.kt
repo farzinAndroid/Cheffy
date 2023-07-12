@@ -52,6 +52,7 @@ fun CuisineCard(
     item: Result,
 ) {
 
+    var text = ""
 
     Card(
         shape = Shapes().medium,
@@ -217,28 +218,26 @@ fun CuisineCard(
                 ) {
 
                     item.cuisines.forEach { cuisine ->
-
-                        Text(
-                            text = "#$cuisine ",
-                            style = TextStyle(
-                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                fontWeight = FontWeight.Normal,
-                                color = Color.Gray
-                            ),
-                            modifier = Modifier
-                                .padding(vertical = 8.dp)
-                                .basicMarquee(
-                                    animationMode = MarqueeAnimationMode.Immediately,
-                                    iterations = Int.MAX_VALUE,
-                                    spacing = MarqueeSpacing(28.dp),
-                                    delayMillis = 0,
-                                    velocity = 20.dp
-                                ),
-                            maxLines = 1,
-                        )
-
+                        text += " #$cuisine "
                     }
-
+                    Text(
+                        text = text,
+                        style = TextStyle(
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            fontWeight = FontWeight.Normal,
+                            color = Color.Gray
+                        ),
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .basicMarquee(
+                                animationMode = MarqueeAnimationMode.Immediately,
+                                iterations = Int.MAX_VALUE,
+                                spacing = MarqueeSpacing(28.dp),
+                                delayMillis = 0,
+                                velocity = 20.dp
+                            ),
+                        maxLines = 1,
+                    )
                 }
 
             }

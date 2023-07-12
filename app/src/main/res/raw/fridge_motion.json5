@@ -1,5 +1,96 @@
 {
 
+  ConstraintSets: {
+    end: {
+      title: {
+        width : "match_parent",
+        height: "wrap_content",
+        top: ['parent' , 'top'],
+        start: ['parent' , 'start']
+      },
+      sub_title: {
+        width : "match_parent",
+        height: "wrap_content",
+        top: ['title' , 'bottom'],
+        start: ['parent' , 'start']
+      },
+      first_text_field: {
+        width : "match_parent",
+        height: "wrap_content",
+        top: ['sub_title' , 'bottom'],
+        start: ['parent' , 'start'],
+        end: ['parent' , 'end'],
+      },
+      second_text_field: {
+        width : "match_parent",
+        height: "wrap_content",
+        top: ['first_text_field' , 'bottom'],
+        start: ['parent' , 'start'],
+        end: ['parent' , 'end'],
+      },
+      third_text_field: {
+        width : "match_parent",
+        height: "wrap_content",
+        top: ['second_text_field' , 'bottom'],
+        start: ['parent' , 'start'],
+        end: ['parent' , 'end'],
+      },
+      button: {
+        width : "match_parent",
+        height: "wrap_content",
+        top: ['third_text_field' , 'bottom'],
+        start: ['parent' , 'start'],
+        end: ['parent' , 'end'],
+      }
+    },
+
+
+    start: {
+      title: {
+        width : "match_parent",
+        height: "wrap_content",
+        top: ['parent' , 'top'],
+        start: ['parent' , 'start']
+      },
+      sub_title: {
+        width : 0,
+        height: 0,
+        top: ['title' , 'bottom'],
+        start: ['parent' , 'start']
+      },
+      first_text_field: {
+        width : 0,
+        height: 0,
+        top: ['sub_title' , 'bottom'],
+        start: ['parent' , 'start'],
+        end: ['parent' , 'end'],
+      },
+      second_text_field: {
+        width : 0,
+        height: 0,
+        top: ['first_text_field' , 'bottom'],
+        start: ['parent' , 'start'],
+        end: ['parent' , 'end'],
+      },
+      third_text_field: {
+        width : 0,
+        height: 0,
+        top: ['second_text_field' , 'bottom'],
+        start: ['parent' , 'start'],
+        end: ['parent' , 'end'],
+      },
+      button: {
+        width : 0,
+        height: 0,
+        top: ['third_text_field' , 'bottom'],
+        start: ['parent' , 'start'],
+        end: ['parent' , 'end'],
+      }
+    }
+
+
+  },
+
 
 
 }

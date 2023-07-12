@@ -43,11 +43,6 @@ fun BottomNavigationBar(
             selectedIcon = painterResource(R.drawable.selected_refrigeretor)
         ),
         BottomNavItem(
-            route = Screens.Search.route,
-            deselectedIcon = painterResource(R.drawable.unselected_search),
-            selectedIcon = painterResource(R.drawable.selected_search)
-        ),
-        BottomNavItem(
             route = Screens.Save.route,
             deselectedIcon = painterResource(R.drawable.unselected_saved),
             selectedIcon = painterResource(R.drawable.selected_saved)

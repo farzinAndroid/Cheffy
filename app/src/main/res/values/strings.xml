@@ -16,4 +16,5 @@
     <string name="whats_in_your_kitchen">What\'s in your kitchen?</string>
     <string name="add_up_three_ingredients">Add up to 3 ingredients</string>
     <string name="find_recipe">Find recipe</string>
+    <string name="recipes">Recipes</string>
 </resources>

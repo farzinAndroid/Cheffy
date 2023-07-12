@@ -1,5 +1,6 @@
 package com.farzin.cheffy.ui.screens.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,13 +25,16 @@ import com.farzin.cheffy.R
 import com.farzin.cheffy.ui.theme.searchBarColor
 
 @Composable
-fun SearchSection() {
+fun SearchSection(
+    onClick:()->Unit
+) {
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .clickable { onClick() },
         shape = Shapes().extraLarge,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.searchBarColor

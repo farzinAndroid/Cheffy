@@ -36,7 +36,7 @@ fun NavGraph(
         }
 
         composable(Screens.Home.route) {
-            HomeScreen()
+            HomeScreen(navController)
         }
 
 
@@ -49,7 +49,7 @@ fun NavGraph(
         }
 
         composable(Screens.Search.route) {
-            SearchScreen()
+            SearchScreen(navController)
         }
 
 

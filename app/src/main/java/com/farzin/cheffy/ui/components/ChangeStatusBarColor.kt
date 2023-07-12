@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.farzin.cheffy.navigation.Screens
 import com.farzin.cheffy.ui.theme.mainGreen
+import com.farzin.cheffy.ui.theme.searchColor
 import com.farzin.cheffy.ui.theme.statusBarColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -25,11 +26,17 @@ fun ChangeStatusBarColor(
         Color.White
 
     val status = MaterialTheme.colorScheme.statusBarColor
+    val searchStatus = MaterialTheme.colorScheme.searchColor
 
     when(backStack?.destination?.route){
         Screens.Welcome.route->{
             SideEffect {
                 systemUiController.setStatusBarColor(statusBarColor)
+            }
+        }
+        Screens.Search.route->{
+            SideEffect {
+                systemUiController.setStatusBarColor(searchStatus)
             }
         }
 

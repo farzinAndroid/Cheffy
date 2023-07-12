@@ -34,6 +34,7 @@ import com.farzin.cheffy.R
 import com.farzin.cheffy.data.model.fridge.FridgeModelItem
 import com.farzin.cheffy.ui.theme.darkText
 import com.farzin.cheffy.ui.theme.searchBarColor
+import com.farzin.cheffy.ui.theme.unusedIngredientColor
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -91,12 +92,15 @@ fun FridgeRecipeItem(
                         fontWeight = FontWeight.Bold
                     ),
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .weight(0.4f)
                 )
 
                 Row(
                     modifier =Modifier
                         .fillMaxWidth()
+                        .weight(0.3f)
                 ) {
 
 
@@ -109,7 +113,7 @@ fun FridgeRecipeItem(
                         text = missed,
                         style = TextStyle(
                             fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                            color = Color.Red,
+                            color = MaterialTheme.colorScheme.unusedIngredientColor,
                             fontWeight = FontWeight.Normal
                         ),
                         modifier = Modifier
@@ -130,6 +134,7 @@ fun FridgeRecipeItem(
                 Row(
                     modifier =Modifier
                         .fillMaxWidth()
+                        .weight(0.3f)
                 ) {
 
                     item.usedIngredients.forEach {

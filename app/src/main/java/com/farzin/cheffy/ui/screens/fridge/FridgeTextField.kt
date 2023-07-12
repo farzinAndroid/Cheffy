@@ -3,10 +3,8 @@ package com.farzin.cheffy.ui.screens.fridge
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -18,13 +16,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.farzin.cheffy.ui.theme.darkText
 import com.farzin.cheffy.ui.theme.seeAllColor
 
@@ -32,6 +28,7 @@ import com.farzin.cheffy.ui.theme.seeAllColor
 fun FridgeTextField(
     number: Int,
     onTextReady: (String) -> Unit,
+    modifier: Modifier
 ) {
 
     var text by remember {
@@ -64,8 +61,6 @@ fun FridgeTextField(
             onValueChange = {
                 text = it
                 onTextReady(text)
-
-
             },
             cursorBrush = SolidColor(MaterialTheme.colorScheme.seeAllColor),
             modifier = Modifier

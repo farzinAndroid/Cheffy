@@ -10,7 +10,7 @@ interface HomeApiInterface {
 
     @GET("complexSearch")
     suspend fun getRecommendation(
-        @Query("number") number:Int = 10,
+        @Query("number") number:Int = 20,
         @Query("addRecipeInformation") addRecipeInformation:Boolean = true,
     ) : Response<RecipeWithInfo>
 

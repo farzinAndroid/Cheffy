@@ -58,6 +58,15 @@ val ColorScheme.darkText: Color
     @Composable
     get() = if (isSystemInDarkTheme()) Color(0xFFFFFFFF) else Color(0xFF000000)
 
+val ColorScheme.unusedIngredientColor: Color
+    @Composable
+    get() = Color(0xFFFA2C2C)
+
+
+val ColorScheme.searchColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color(0xFF464646) else Color(0xFF00A324)
+
 
 
 

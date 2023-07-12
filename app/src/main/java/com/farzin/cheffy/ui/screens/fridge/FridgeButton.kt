@@ -22,6 +22,7 @@ import com.google.accompanist.pager.pagerTabIndicatorOffset
 @Composable
 fun FridgeButton(
     onClick: () -> Unit,
+    modifier: Modifier
 ) {
 
     Button(

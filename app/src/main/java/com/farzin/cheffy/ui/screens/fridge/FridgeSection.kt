@@ -20,6 +20,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -55,7 +57,7 @@ fun FridgeSection(
             recipeByIngredientList = result.data ?: emptyList()
             loading = false
 
-            if(recipeByIngredientList.isEmpty()){
+            if (recipeByIngredientList.isEmpty()) {
                 Toast.makeText(
                     context,
                     "ingrediets are not valid",
@@ -76,94 +78,100 @@ fun FridgeSection(
     }
 
 
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        Text(
+            text = stringResource(R.string.whats_in_your_kitchen),
+            style = TextStyle(
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                fontWeight = FontWeight.Bold
+            ),
             modifier = Modifier
+                .layoutId("title")
+        )
+
+        Text(
+            text = stringResource(R.string.add_up_three_ingredients),
+            style = TextStyle(
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontWeight = FontWeight.Normal
+            ),
+            modifier = Modifier
+                .padding(vertical = 16.dp)
+                .layoutId("sub_title")
+        )
+
+
+        FridgeTextField(
+            number = 1,
+            onTextReady = {
+                text1 = it
+            },
+            modifier = Modifier
+                .layoutId("first_text_field")
+        )
+        FridgeTextField(
+            number = 2,
+            onTextReady = {
+                text2 = it
+            },
+            modifier = Modifier
+                .layoutId("second_text_field")
+        )
+        FridgeTextField(
+            number = 3,
+            onTextReady = {
+                text3 = it
+            },
+            modifier = Modifier
+                .layoutId("third_text_field")
+        )
+
+
+        FridgeButton(
+            onClick = {
+
+                 if (text1.isNullOrBlank() || text2.isNullOrBlank() || text3.isNullOrBlank()){
+
+                     Toast.makeText(
+                         context,
+                         "all fields should be filled",
+                         Toast.LENGTH_LONG
+                     ).show()
+
+                 }
+
+                scope.launch {
+                    getRecipeByIngredientFromServer(fridgeViewModel, "$text1,$text2,$text3")
+                }
+
+
+            },
+            modifier = Modifier
+                .layoutId("button")
+        )
+
+
+        LazyColumn(
+            modifier = Modifier
+                .padding(top = 8.dp)
                 .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center
+                .fillMaxHeight()
+
         ) {
 
-            Text(
-                text = stringResource(R.string.whats_in_your_kitchen),
-                style = TextStyle(
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    fontWeight = FontWeight.Bold
-                )
-            )
-
-            Text(
-                text = stringResource(R.string.add_up_three_ingredients),
-                style = TextStyle(
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.Normal
-                ),
-                modifier = Modifier
-                    .padding(vertical = 16.dp)
-            )
-
-
-            FridgeTextField(
-                number = 1,
-                onTextReady = {
-                    text1 = it
-                }
-            )
-            FridgeTextField(
-                number = 2,
-                onTextReady = {
-                    text2 = it
-                }
-            )
-            FridgeTextField(
-                number = 3,
-                onTextReady = {
-                    text3 = it
-                }
-            )
-
-
-            FridgeButton(
-                onClick = {
-
-                   /* if (text1.isNullOrBlank() || text2.isNullOrBlank() || text3.isNullOrBlank()){
-
-                        Toast.makeText(
-                            context,
-                            "all fields should be filled",
-                            Toast.LENGTH_LONG
-                        ).show()
-
-                    }*/
-
-                        scope.launch {
-                            getRecipeByIngredientFromServer(fridgeViewModel, "potato,tomato,egg")
-                        }
-
-
-
-
-
-                }
-            )
-
-
-            LazyColumn(
-                modifier = Modifier
-                    .padding(top = 8.dp)
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-
-            ) {
-
-                items(recipeByIngredientList){fridgeModel->
-                    FridgeRecipeItem(fridgeModel)
-                }
-
+            items(recipeByIngredientList) { fridgeModel ->
+                FridgeRecipeItem(fridgeModel)
             }
 
         }
 
-
+    }
 
 
 }

@@ -10,21 +10,27 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.farzin.cheffy.navigation.Screens
 import com.farzin.cheffy.ui.theme.statusBarColor
 import com.farzin.cheffy.viewmodel.HomeViewModel
 
 @Composable
-fun HomeScreen(homeViewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    navController: NavHostController,
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
 
     LaunchedEffect(true){
         getAllServerResults(homeViewModel)
     }
 
-    Home()
+    Home(navController)
 }
 
 @Composable
-fun Home() {
+fun Home(navController: NavHostController,) {
 
     LazyColumn(
         modifier = Modifier
@@ -33,7 +39,11 @@ fun Home() {
             .background(MaterialTheme.colorScheme.statusBarColor)
     ){
         item { HomeTopBarSection() }
-        item { SearchSection() }
+        item { SearchSection(
+            onClick = {
+                navController.navigate(Screens.Search.route)
+            }
+        ) }
         item { RecommendationSection() }
         item { TopCuisinesSection() }
     }

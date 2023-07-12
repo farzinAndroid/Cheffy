@@ -47,7 +47,6 @@ fun RecommendationSection(
         is NetworkResult.Success->{
             recommendedList = result.data?.results ?: emptyList()
             loading = false
-//            Log.e("TAG","success ${result.data?.results?.get(0)?.pricePerServing}")
         }
         is NetworkResult.Error->{
             loading = false
