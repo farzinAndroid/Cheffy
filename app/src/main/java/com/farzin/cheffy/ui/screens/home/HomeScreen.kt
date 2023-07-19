@@ -34,7 +34,7 @@ fun Home(navController: NavHostController,) {
 
     LazyColumn(
         modifier = Modifier
-            .padding(bottom = 40.dp)
+            .padding(bottom = 60.dp)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.statusBarColor)
     ){

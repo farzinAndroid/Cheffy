@@ -199,7 +199,10 @@ fun SearchSection(
                 SearchFoodItem(
                     item = item,
                     onClick = {
-                        navController.navigate(Screens.Detail.route+"/${item.id}")
+                        navController.navigate(Screens.Detail.route+"/${item.id}") {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 )
             }

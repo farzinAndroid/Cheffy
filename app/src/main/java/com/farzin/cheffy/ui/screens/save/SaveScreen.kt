@@ -37,7 +37,7 @@ fun SaveSection(
     LazyVerticalGrid(
         modifier = Modifier
         .fillMaxSize()
-        .padding(bottom = 40.dp),
+        .padding(bottom = 60.dp),
         columns = GridCells.Fixed(2)
     ){
 

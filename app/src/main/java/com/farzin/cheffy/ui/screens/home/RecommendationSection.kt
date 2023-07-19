@@ -105,7 +105,10 @@ fun RecommendationSection(
                 RecommendationCard(
                     item = item,
                     onClick = {id->
-                        navController.navigate(Screens.Detail.route+"/$id")
+                        navController.navigate(Screens.Detail.route+"/$id"){
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 )
             }
