@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -25,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.farzin.cheffy.R
 import com.farzin.cheffy.ui.theme.darkText
-import com.farzin.cheffy.ui.theme.iconColor
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -34,6 +32,8 @@ fun RecipeDetailTitle(
     min: Int,
     servings: Int,
     credit: String,
+    onSaveClicked: () -> Unit,
+    isSaved:Boolean
 ) {
 
     val creditText =
@@ -155,7 +155,10 @@ fun RecipeDetailTitle(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                LikeButton()
+                SaveButton(
+                    onSaveClicked = { onSaveClicked() },
+                    isSaved = isSaved
+                )
             }
 
         }

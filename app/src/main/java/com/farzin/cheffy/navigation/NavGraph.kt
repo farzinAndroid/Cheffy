@@ -67,7 +67,7 @@ fun NavGraph(
             arguments.arguments?.getInt("id")?.let {
                 RecipeDetailScreen(
                     id = it,
-                    onClick = {
+                    onBackButtonClicked = {
                         navController.popBackStack()
                     }
                 )

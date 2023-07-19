@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.farzin.cheffy.R
+import com.farzin.cheffy.data.model.db_model.DBRecipeModel
 import com.farzin.cheffy.data.model.home.recommended_section.Result
 import com.farzin.cheffy.ui.theme.iconColor
 import com.farzin.cheffy.ui.theme.searchBarColor
@@ -146,6 +147,136 @@ fun RecommendationCard(
 
                     Text(
                         text = item.servings.toString(),
+                        style = TextStyle(
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        modifier = Modifier,
+                        maxLines =1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+
+            }
+
+
+        }
+
+    }
+
+
+}
+
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun RecommendationCard(
+    item: DBRecipeModel,
+    onClick:(Int)->Unit
+) {
+
+    Card(
+        modifier = Modifier
+            .width(200.dp)
+            .height(270.dp)
+            .padding(16.dp)
+            .clickable { onClick(item.itemId) },
+        shape = Shapes().medium,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.searchBarColor
+        )
+    ) {
+
+        Column{
+
+            Image(
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(item.image)
+                        .crossfade(100)
+                        .build()
+                ),
+                contentDescription = "",
+                modifier = Modifier
+                    .weight(0.7f),
+                contentScale = ContentScale.Crop
+            )
+
+            Text(
+                text = item.title,
+                style = TextStyle(
+                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                    fontWeight = FontWeight.Bold
+                ),
+                modifier = Modifier
+                    .weight(0.2f)
+                    .padding(vertical = 8.dp)
+                    .padding(horizontal = 8.dp)
+                    .basicMarquee(
+                        animationMode = MarqueeAnimationMode.Immediately,
+                        iterations = Int.MAX_VALUE,
+                        spacing = MarqueeSpacing(28.dp),
+                        delayMillis = 0,
+                        velocity = 20.dp
+                    ),
+                maxLines =1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Row(
+                modifier = Modifier
+                    .weight(0.2f)
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+
+                    Icon(
+                        painter = painterResource(R.drawable.clock),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(14.dp),
+                        tint = MaterialTheme.colorScheme.iconColor
+                    )
+
+                    Text(
+                        text = "${item.time} ${stringResource(R.string.min)}",
+                        style = TextStyle(
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        modifier = Modifier,
+                        maxLines =1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+
+
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+
+                    Icon(
+                        painter = painterResource(R.drawable.serving),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(14.dp),
+                        tint = MaterialTheme.colorScheme.iconColor
+                    )
+
+                    Text(
+                        text = item.serving.toString(),
                         style = TextStyle(
                             fontSize = MaterialTheme.typography.bodySmall.fontSize,
                             fontWeight = FontWeight.Bold

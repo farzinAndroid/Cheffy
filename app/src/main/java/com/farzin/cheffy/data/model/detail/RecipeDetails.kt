@@ -1,5 +1,7 @@
 package com.farzin.cheffy.data.model.detail
 
+import com.farzin.cheffy.utils.Constants.PLACEHOLDER
+
 data class RecipeDetails(
     val aggregateLikes: Int,
     val analyzedInstructions: List<AnalyzedInstruction>,
@@ -15,7 +17,7 @@ data class RecipeDetails(
     val glutenFree: Boolean,
     val healthScore: Int,
     val id: Int,
-    val image: String,
+    val image: String? = PLACEHOLDER,
     val imageType: String,
     val instructions: String,
     val license: String,
