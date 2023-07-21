@@ -1,6 +1,8 @@
 package com.farzin.cheffy.navigation
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -11,24 +13,22 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.farzin.cheffy.R
-import com.farzin.cheffy.ui.theme.bottomBarColor
 import com.farzin.cheffy.ui.theme.bottomItemColor
-import com.farzin.cheffy.ui.theme.mainGreen
 import com.farzin.cheffy.ui.theme.searchBarColor
-import com.farzin.cheffy.ui.theme.searchColor
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun BottomNavigationBar(
-    onClick:(BottomNavItem)->Unit,
+    onClick: (BottomNavItem) -> Unit,
     navController: NavHostController,
 ) {
 
@@ -54,7 +54,7 @@ fun BottomNavigationBar(
     val backStack = navController.currentBackStackEntryAsState()
     val showBottomBar = backStack.value?.destination?.route in bottomBarList.map { it.route }
 
-    if (showBottomBar){
+    if (showBottomBar) {
 
         BottomAppBar(
             modifier = Modifier
@@ -66,7 +66,7 @@ fun BottomNavigationBar(
         ) {
 
             bottomBarList.forEachIndexed { index, bottomNavItem ->
-            val selected = bottomNavItem.route == backStack.value?.destination?.route
+                val selected = bottomNavItem.route == backStack.value?.destination?.route
                 BottomNavigationItem(
                     selected = selected,
                     onClick = { onClick(bottomNavItem) },
@@ -74,9 +74,12 @@ fun BottomNavigationBar(
 
                         Icon(
                             painter = if (selected) bottomNavItem.selectedIcon else bottomNavItem.deselectedIcon,
-                            contentDescription ="",
+                            contentDescription = "",
                             modifier = Modifier
-                                .size(26.dp),
+                                .size(26.dp)
+                                .noRippleClickable {
+                                    onClick(bottomNavItem)
+                                },
                             tint = MaterialTheme.colorScheme.bottomItemColor
                         )
 
@@ -89,4 +92,14 @@ fun BottomNavigationBar(
     }
 
 
+}
+
+
+fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
+    clickable(
+        indication = null,
+        interactionSource = remember { MutableInteractionSource() }
+    ) {
+        onClick()
+    }
 }

@@ -1,12 +1,11 @@
 package com.farzin.cheffy.repository
 
-import com.farzin.cheffy.data.db.RecipeDB
 import com.farzin.cheffy.data.db.RecipeDao
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.db_model.DBRecipeModel
 import com.farzin.cheffy.data.model.detail.RecipeDetails
-import com.farzin.cheffy.data.remote.detail.DetailApiInterface
 import com.farzin.cheffy.data.remote.BaseApiResponse
+import com.farzin.cheffy.data.remote.detail.DetailApiInterface
 import javax.inject.Inject
 
 class DetailRepository @Inject constructor(

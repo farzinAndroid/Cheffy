@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -44,6 +45,7 @@ import com.farzin.cheffy.R
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.home.recommended_section.Result
 import com.farzin.cheffy.navigation.Screens
+import com.farzin.cheffy.ui.components.MyLoading
 import com.farzin.cheffy.ui.theme.searchColor
 import com.farzin.cheffy.viewmodel.SearchViewModel
 import kotlinx.coroutines.Job
@@ -67,139 +69,137 @@ fun SearchSection(
     var searchList = remember<List<Result>> { emptyList() }
 
     val result by searchViewModel.recipeSearch.collectAsState()
-    when(result){
-        is NetworkResult.Success->{
+    when (result) {
+        is NetworkResult.Success -> {
             searchList = result.data?.results ?: emptyList()
             loading = false
         }
-        is NetworkResult.Error->{
+
+        is NetworkResult.Error -> {
             loading = false
-            Log.e("TAG","searchList error  ${result.message}")
+            Log.e("TAG", "searchList error  ${result.message}")
         }
-        is NetworkResult.Loading->{
+
+        is NetworkResult.Loading -> {
             loading = true
         }
     }
 
 
-
-
-    Column(
+    Surface(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .height(150.dp),
+        color = MaterialTheme.colorScheme.searchColor
     ) {
 
-        Surface(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(150.dp),
-            color = MaterialTheme.colorScheme.searchColor
+                .fillMaxSize(),
         ) {
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
                 ) {
+
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .size(35.dp)
+                            .align(Alignment.TopStart)
+                            .clip(Shapes().extraLarge)
+                            .background(Color.White)
+                            .clickable {
+                                onBackClick()
+                            }
                     ) {
 
-                        Box(
-                            modifier =
-                            Modifier
-                                .padding(16.dp)
-                                .size(35.dp)
-                                .align(Alignment.TopStart)
-                                .clip(Shapes().extraLarge)
-                                .background(Color.White)
-                                .clickable {
-                                    onBackClick()
-                                }
-                        ) {
-
-                            Icon(
-                                imageVector = Icons.Default.KeyboardArrowLeft,
-                                contentDescription = "",
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(8.dp),
-                                tint = MaterialTheme.colorScheme.searchColor
-                            )
-                        }
-
-
-                        Text(
-                            text = stringResource(R.string.recipes),
-                            style = TextStyle(
-                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                color = Color.White,
-                                fontWeight = FontWeight.Bold
-                            ),
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowLeft,
+                            contentDescription = "",
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .align(Alignment.Center),
-                            textAlign = TextAlign.Center
+                                .fillMaxSize()
+                                .padding(8.dp),
+                            tint = MaterialTheme.colorScheme.searchColor
                         )
-
                     }
-                }
 
-                BasicTextField(
-                    textStyle = TextStyle(
-                        color = Color.Black,
-                        fontSize = MaterialTheme.typography.bodySmall.fontSize
-                    ),
-                    value = text,
-                    onValueChange = {
-                        text = it
-                        searchJob?.cancel()
-                        searchJob = courotinScope.launch {
-                            delay(1000)
-                            if (searchViewModel.validateQuery(text)){
-                                searchRecipes(searchViewModel,text)
-                            }
-                        }
-                    },
-                    cursorBrush = SolidColor(MaterialTheme.colorScheme.searchColor),
-                    modifier = Modifier
-                        .padding(horizontal = 24.dp)
-                        .padding(vertical = 16.dp)
-                        .clip(Shapes().extraLarge)
-                        .background(Color.White)
-                        .fillMaxWidth()
-                        .height(45.dp),
-                    decorationBox = { innerTextField ->
-                        Box(
-                            modifier = Modifier
-                                .padding(vertical = 16.dp)
-                                .padding(horizontal = 16.dp)
-                                .weight(0.9f)
-                        ) {
-                            innerTextField()
-                        }
-                    })
+
+                    Text(
+                        text = stringResource(R.string.recipes),
+                        style = TextStyle(
+                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.Center),
+                        textAlign = TextAlign.Center
+                    )
+
+                }
             }
 
+            BasicTextField(
+                textStyle = TextStyle(
+                    color = Color.Black,
+                    fontSize = MaterialTheme.typography.bodySmall.fontSize
+                ),
+                value = text,
+                onValueChange = {
+                    text = it
+                    searchJob?.cancel()
+                    searchJob = courotinScope.launch {
+                        delay(1000)
+                        if (searchViewModel.validateQuery(text)) {
+                            searchRecipes(searchViewModel, text)
+                        }
+                    }
+                },
+                cursorBrush = SolidColor(MaterialTheme.colorScheme.searchColor),
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .padding(vertical = 16.dp)
+                    .clip(Shapes().extraLarge)
+                    .background(Color.White)
+                    .fillMaxWidth()
+                    .height(45.dp),
+                decorationBox = { innerTextField ->
+                    Box(
+                        modifier = Modifier
+                            .padding(vertical = 16.dp)
+                            .padding(horizontal = 16.dp)
+                            .weight(0.9f)
+                    ) {
+                        innerTextField()
+                    }
+                })
         }
 
+    }
 
+
+    if (loading && text.isNotBlank()) {
+        val config = LocalConfiguration.current
+        MyLoading(height = config.screenHeightDp.dp)
+    } else {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(1000.dp)
-        ){
+        ) {
 
-            items(searchList){item->
+            items(searchList) { item ->
                 SearchFoodItem(
                     item = item,
                     onClick = {
-                        navController.navigate(Screens.Detail.route+"/${item.id}") {
+                        navController.navigate(Screens.Detail.route + "/${item.id}") {
                             launchSingleTop = true
                             restoreState = true
                         }
@@ -208,14 +208,11 @@ fun SearchSection(
             }
 
         }
-
-
-
     }
 
 
 }
 
-private fun searchRecipes(vm:SearchViewModel,q:String){
+private fun searchRecipes(vm: SearchViewModel, q: String) {
     vm.searchRecipes(q)
 }

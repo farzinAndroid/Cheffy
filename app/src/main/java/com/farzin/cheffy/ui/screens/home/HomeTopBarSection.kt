@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.farzin.cheffy.R
 import com.farzin.cheffy.ui.theme.chefHatColor
-import com.farzin.cheffy.ui.theme.mainGreen
 
 @Composable
 fun HomeTopBarSection() {

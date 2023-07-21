@@ -68,6 +68,11 @@ val ColorScheme.searchColor: Color
     get() = if (isSystemInDarkTheme()) Color(0xFF464646) else Color(0xFF00A324)
 
 
+val ColorScheme.loading: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color(0xFFFFFFFF) else Color(0xFF00A324)
+
+
 
 
 

@@ -17,12 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.farzin.cheffy.R
 import com.farzin.cheffy.ui.theme.seeAllColor
-import com.google.accompanist.pager.pagerTabIndicatorOffset
 
 @Composable
 fun FridgeButton(
     onClick: () -> Unit,
-    modifier: Modifier
 ) {
 
     Button(

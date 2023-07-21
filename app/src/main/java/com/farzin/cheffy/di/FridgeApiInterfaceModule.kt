@@ -1,7 +1,6 @@
 package com.farzin.cheffy.di
 
 import com.farzin.cheffy.data.remote.fridge.FridgeApiInterface
-import com.farzin.cheffy.data.remote.home.HomeApiInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

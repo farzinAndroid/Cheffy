@@ -1,12 +1,13 @@
 package com.farzin.cheffy.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.db_model.DBRecipeModel
 import com.farzin.cheffy.data.model.detail.RecipeDetails
-import com.farzin.cheffy.data.model.home.recommended_section.RecipeWithInfo
 import com.farzin.cheffy.repository.DetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,7 @@ class DetailViewModel @Inject constructor(private val repo: DetailRepository) : 
 
     val recipes = repo.recipes
 
+    var isSaved by mutableStateOf(false)
 
     fun insertRecipe(recipe: DBRecipeModel) {
         viewModelScope.launch(Dispatchers.IO) {

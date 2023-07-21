@@ -28,7 +28,6 @@ import com.farzin.cheffy.ui.theme.seeAllColor
 fun FridgeTextField(
     number: Int,
     onTextReady: (String) -> Unit,
-    modifier: Modifier
 ) {
 
     var text by remember {

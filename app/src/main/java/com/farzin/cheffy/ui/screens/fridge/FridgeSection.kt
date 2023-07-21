@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,8 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
-import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -32,10 +29,8 @@ import androidx.navigation.NavController
 import com.farzin.cheffy.R
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.fridge.FridgeModelItem
-import com.farzin.cheffy.data.model.home.recommended_section.Result
 import com.farzin.cheffy.navigation.Screens
 import com.farzin.cheffy.viewmodel.FridgeViewModel
-import com.farzin.cheffy.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -95,7 +90,6 @@ fun FridgeSection(
                 fontWeight = FontWeight.Bold
             ),
             modifier = Modifier
-                .layoutId("title")
         )
 
         Text(
@@ -106,7 +100,6 @@ fun FridgeSection(
             ),
             modifier = Modifier
                 .padding(vertical = 16.dp)
-                .layoutId("sub_title")
         )
 
 
@@ -114,50 +107,45 @@ fun FridgeSection(
             number = 1,
             onTextReady = {
                 text1 = it
-            },
-            modifier = Modifier
-                .layoutId("first_text_field")
+            }
         )
         FridgeTextField(
             number = 2,
             onTextReady = {
                 text2 = it
-            },
-            modifier = Modifier
-                .layoutId("second_text_field")
+            }
         )
         FridgeTextField(
             number = 3,
             onTextReady = {
                 text3 = it
-            },
-            modifier = Modifier
-                .layoutId("third_text_field")
+            }
         )
 
 
         FridgeButton(
             onClick = {
 
-                 if (text1.isNullOrBlank() || text2.isNullOrBlank() || text3.isNullOrBlank()){
+                if (text1.isNullOrBlank() || text2.isNullOrBlank() || text3.isNullOrBlank()) {
 
-                     Toast.makeText(
-                         context,
-                         "all fields should be filled",
-                         Toast.LENGTH_LONG
-                     ).show()
+                    Toast.makeText(
+                        context,
+                        "all fields should be filled",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-                 }
-
-                scope.launch {
-                    getRecipeByIngredientFromServer(fridgeViewModel, "$text1,$text2,$text3")
+                } else {
+                    scope.launch {
+                        getRecipeByIngredientFromServer(fridgeViewModel, "$text1,$text2,$text3")
+                    }
                 }
 
 
-            },
-            modifier = Modifier
-                .layoutId("button")
+            }
         )
+
+
+    }
 
 
         LazyColumn(
@@ -172,17 +160,16 @@ fun FridgeSection(
                 FridgeRecipeItem(
                     fridgeModel,
                     onClick = {
-                        navController.navigate(Screens.Detail.route+"/${fridgeModel.id}")
+                        navController.navigate(Screens.Detail.route + "/${fridgeModel.id}")
                     }
                 )
             }
 
         }
-
     }
 
 
-}
+
 
 private fun getRecipeByIngredientFromServer(vm: FridgeViewModel, ingredients: String) {
     vm.getRecipeByIngredientFromServer(ingredients)

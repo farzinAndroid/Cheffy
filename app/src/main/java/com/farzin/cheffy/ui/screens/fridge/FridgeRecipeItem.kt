@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
-import com.farzin.cheffy.R
 import com.farzin.cheffy.data.model.fridge.FridgeModelItem
 import com.farzin.cheffy.ui.theme.darkText
 import com.farzin.cheffy.ui.theme.searchBarColor

@@ -1,26 +1,17 @@
 package com.farzin.cheffy.ui.screens.recipeDetail
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,21 +22,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
-import coil.size.Scale
 import com.farzin.cheffy.data.model.NetworkResult
 import com.farzin.cheffy.data.model.db_model.DBRecipeModel
 import com.farzin.cheffy.data.model.detail.RecipeDetails
 import com.farzin.cheffy.data.model.detail.WinePairing
 import com.farzin.cheffy.ui.theme.searchBarColor
-import com.farzin.cheffy.ui.theme.searchColor
 import com.farzin.cheffy.utils.Constants.PLACEHOLDER
 import com.farzin.cheffy.viewmodel.DetailViewModel
 import kotlinx.coroutines.Dispatchers
@@ -60,29 +43,27 @@ fun RecipeDetailScreen(
 ) {
 
 
-
     LaunchedEffect(true) {
         getRecipeDetailFromServer(detailViewModel, id)
     }
 
     val scope = rememberCoroutineScope()
     var loading by remember { mutableStateOf(false) }
-    var isSaved by remember { mutableStateOf(false) }
     var recipeDetail = remember { emptyRecipeDetails() }
-    val c = LocalContext.current
 
 
-    LaunchedEffect(true){
+
+    LaunchedEffect(true) {
 
         scope.launch(Dispatchers.IO) {
-            isSaved = if (detailViewModel.findById(id) == id){
+            detailViewModel.isSaved = if (detailViewModel.findById(id) == id) {
 
-                Log.e("TAG","already exists")
+                Log.e("TAG", "already exists")
                 true
 
-            }else{
+            } else {
 
-                Log.e("TAG","dont exists")
+                Log.e("TAG", "dont exists")
                 false
 
             }
@@ -120,151 +101,95 @@ fun RecipeDetailScreen(
             CircularProgressIndicator()
         }
     } else {
-        Column(
+
+        Card(
             modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.searchBarColor),
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(
+                topStartPercent = 8,
+                topEndPercent = 8,
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
+        ) {
 
-            ) {
 
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.3f)
             ) {
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-
-                    Image(
-                        painter = rememberAsyncImagePainter(
-                            ImageRequest.Builder(c)
-                                .data(recipeDetail.image)
-                                .scale(Scale.FIT)
-                                .crossfade(100)
-                                .build()
-                        ),
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxSize()
+                item {
+                    RecipeDetailHeader(
+                        recipeDetail = recipeDetail,
+                        onBackButtonClicked = { onBackButtonClicked() }
                     )
+                }
 
-                    Box(
-                        modifier =
-                        Modifier
-                            .padding(16.dp)
-                            .size(35.dp)
-                            .align(Alignment.TopStart)
-                            .clip(Shapes().extraLarge)
-                            .background(Color.White)
-                            .clickable {
-                                onBackButtonClicked()
+                item {
+                    RecipeDetailTitle(
+                        title = recipeDetail.title,
+                        min = recipeDetail.readyInMinutes,
+                        servings = recipeDetail.servings,
+                        credit = recipeDetail.creditsText,
+                        onSaveClicked = {
+
+                            if (detailViewModel.isSaved) {
+                                detailViewModel.isSaved = !detailViewModel.isSaved
+                                detailViewModel.deleteRecipe(
+                                    DBRecipeModel(
+                                        itemId = recipeDetail.id,
+                                        image = recipeDetail.image ?: PLACEHOLDER,
+                                        title = recipeDetail.title,
+                                        desc = recipeDetail.summary,
+                                        serving = recipeDetail.servings,
+                                        time = recipeDetail.readyInMinutes,
+                                        source = recipeDetail.sourceName
+                                    )
+                                )
+                            } else {
+                                detailViewModel.isSaved = !detailViewModel.isSaved
+                                detailViewModel.insertRecipe(
+                                    DBRecipeModel(
+                                        itemId = recipeDetail.id,
+                                        image = recipeDetail.image ?: PLACEHOLDER,
+                                        title = recipeDetail.title,
+                                        desc = recipeDetail.summary,
+                                        serving = recipeDetail.servings,
+                                        time = recipeDetail.readyInMinutes,
+                                        source = recipeDetail.sourceName
+                                    )
+                                )
                             }
-                    ) {
-
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowLeft,
-                            contentDescription = "",
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(8.dp),
-                            tint = MaterialTheme.colorScheme.searchColor
-                        )
-                    }
 
 
+                        },
+                        isSaved = detailViewModel.isSaved
+                    )
                 }
 
-
-            }
-
-
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(0.7f),
-                shape = RoundedCornerShape(
-                    topStartPercent = 8,
-                    topEndPercent = 8,
-                ),
-                elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
-            ) {
-
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-
-                    item {
-                        RecipeDetailTitle(
-                            title = recipeDetail.title,
-                            min = recipeDetail.readyInMinutes,
-                            servings = recipeDetail.servings,
-                            credit = recipeDetail.creditsText,
-                            onSaveClicked = {
-
-                                if (isSaved){
-                                    isSaved = !isSaved
-                                    detailViewModel.deleteRecipe(
-                                        DBRecipeModel(
-                                            itemId = recipeDetail.id,
-                                            image = recipeDetail.image ?: PLACEHOLDER,
-                                            title = recipeDetail.title,
-                                            desc = recipeDetail.summary,
-                                            serving = recipeDetail.servings,
-                                            time = recipeDetail.readyInMinutes,
-                                            source = recipeDetail.sourceName
-                                        )
-                                    )
-                                } else{
-                                    isSaved = !isSaved
-                                    detailViewModel.insertRecipe(
-                                        DBRecipeModel(
-                                            itemId = recipeDetail.id,
-                                            image = recipeDetail.image ?: PLACEHOLDER,
-                                            title = recipeDetail.title,
-                                            desc = recipeDetail.summary,
-                                            serving = recipeDetail.servings,
-                                            time = recipeDetail.readyInMinutes,
-                                            source = recipeDetail.sourceName
-                                        )
-                                    )
-                                }
-
-
-                            },
-                            isSaved = isSaved
-                        )
-                    }
-
-                    item {
-                        RecipeDetailDescription(
-                            desc = recipeDetail.summary
-                        )
-                    }
-
-                    item {
-                        RecipeDetailIngredients(
-                            list = recipeDetail.extendedIngredients
-                        )
-                    }
-
-                    item {
-                        RecipeDetailSteps(
-                            steps = recipeDetail.analyzedInstructions
-                        )
-                    }
-
+                item {
+                    RecipeDetailDescription(
+                        desc = recipeDetail.summary
+                    )
                 }
 
+                item {
+                    RecipeDetailIngredients(
+                        list = recipeDetail.extendedIngredients
+                    )
+                }
+
+                item {
+                    RecipeDetailSteps(
+                        steps = recipeDetail.analyzedInstructions
+                    )
+                }
 
             }
-
 
         }
+
+
     }
 
 
