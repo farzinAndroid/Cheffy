@@ -106,7 +106,7 @@ fun FridgeRecipeItem(
 
 
                     item.missedIngredients.forEach {
-                        missed += "#${it.name}  "
+                        missed += "#${it.name} - "
                     }
 
                     Text(
@@ -138,7 +138,7 @@ fun FridgeRecipeItem(
                 ) {
 
                     item.usedIngredients.forEach {
-                        used += "#${it.name}  "
+                        used += "#${it.name} - "
                     }
                     Text(
                         text = used,

@@ -76,76 +76,7 @@ fun FridgeSection(
     }
 
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
 
-        Text(
-            text = stringResource(R.string.whats_in_your_kitchen),
-            style = TextStyle(
-                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                fontWeight = FontWeight.Bold
-            ),
-            modifier = Modifier
-        )
-
-        Text(
-            text = stringResource(R.string.add_up_three_ingredients),
-            style = TextStyle(
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.Normal
-            ),
-            modifier = Modifier
-                .padding(vertical = 16.dp)
-        )
-
-
-        FridgeTextField(
-            number = 1,
-            onTextReady = {
-                text1 = it
-            }
-        )
-        FridgeTextField(
-            number = 2,
-            onTextReady = {
-                text2 = it
-            }
-        )
-        FridgeTextField(
-            number = 3,
-            onTextReady = {
-                text3 = it
-            }
-        )
-
-
-        FridgeButton(
-            onClick = {
-
-                if (text1.isNullOrBlank() || text2.isNullOrBlank() || text3.isNullOrBlank()) {
-
-                    Toast.makeText(
-                        context,
-                        "all fields should be filled",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                } else {
-                    scope.launch {
-                        getRecipeByIngredientFromServer(fridgeViewModel, "$text1,$text2,$text3")
-                    }
-                }
-
-
-            }
-        )
-
-
-    }
 
 
         LazyColumn(
@@ -155,6 +86,80 @@ fun FridgeSection(
                 .fillMaxHeight()
 
         ) {
+
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+
+                    Text(
+                        text = stringResource(R.string.whats_in_your_kitchen),
+                        style = TextStyle(
+                            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        modifier = Modifier
+                    )
+
+                    Text(
+                        text = stringResource(R.string.add_up_three_ingredients),
+                        style = TextStyle(
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            fontWeight = FontWeight.Normal
+                        ),
+                        modifier = Modifier
+                            .padding(vertical = 16.dp)
+                    )
+
+
+                    FridgeTextField(
+                        number = 1,
+                        onTextReady = {
+                            text1 = it
+                        }
+                    )
+                    FridgeTextField(
+                        number = 2,
+                        onTextReady = {
+                            text2 = it
+                        }
+                    )
+                    FridgeTextField(
+                        number = 3,
+                        onTextReady = {
+                            text3 = it
+                        }
+                    )
+
+
+                    FridgeButton(
+                        onClick = {
+
+                            if (text1.isNullOrBlank() || text2.isNullOrBlank() || text3.isNullOrBlank()) {
+
+                                Toast.makeText(
+                                    context,
+                                    "all fields should be filled",
+                                    Toast.LENGTH_LONG
+                                ).show()
+
+                            } else {
+                                scope.launch {
+                                    getRecipeByIngredientFromServer(fridgeViewModel, "$text1,$text2,$text3")
+                                }
+                            }
+
+
+                        }
+                    )
+
+
+                }
+            }
+
 
             items(recipeByIngredientList) { fridgeModel ->
                 FridgeRecipeItem(

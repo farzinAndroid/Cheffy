@@ -16,7 +16,6 @@ fun FridgeScreen(navController: NavController) {
 
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Fridge(navController: NavController) {
 
